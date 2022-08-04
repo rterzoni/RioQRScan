@@ -1,8 +1,24 @@
 import React from 'react';
+const express = require('express');
+const app = express();
+const path = require('path');
+const router = express.Router();
 
-function App() {
-  const value = 'World';
-  return <div>Hello {value}</div>;
-}
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
 
-export default App;
+router.get('/about',function(req,res){
+  res.sendFile(path.join(__dirname+'/about.html'));
+});
+
+router.get('/sitemap',function(req,res){
+  res.sendFile(path.join(__dirname+'/sitemap.html'));
+});
+
+//add the router
+app.use('/', router);
+app.listen(process.env.port || 3000);
+
+console.log('Running at Port 3000');
